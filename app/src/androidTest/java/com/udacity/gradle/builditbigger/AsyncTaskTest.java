@@ -1,10 +1,13 @@
-package com.udacity.gradle.jokescreen;
+package com.udacity.gradle.builditbigger;
 
+import android.app.Activity;
+import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.widget.TextView;
 
 import com.udacity.gradle.jokemaker.JokeMaker;
+import com.udacity.gradle.jokescreen.JokeScreenActivity;
 
 import junit.framework.Assert;
 
@@ -17,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class AsyncTaskTest extends ActivityInstrumentationTestCase2<JokeScreenActivity> {
 
-    private TextView mTv;
+    private Activity activity;
 
     public AsyncTaskTest() {
         super(JokeScreenActivity.class);
@@ -27,13 +30,13 @@ public class AsyncTaskTest extends ActivityInstrumentationTestCase2<JokeScreenAc
     protected void setUp() throws Exception {
         super.setUp();
         //setActivityInitialTouchMode(true);
-        mTv = (TextView) getActivity().findViewById(R.id.screen_text);
+        activity = getActivity();
     }
 
     @MediumTest
     public void testJokeContent_iscorrect() throws Exception {
         // Context of the app under test.
-        String content = new EndpointsAsyncTask().execute(mTv).get(60000, TimeUnit.MICROSECONDS);
-        Assert.assertEquals(JokeMaker.content, mTv.getText());
+        String content = new EndpointsAsyncTask().execute(activity).get();
+        Assert.assertEquals(JokeMaker.content, ((TextView)activity.findViewById(R.id.screen_text)).getText());
     }
 }

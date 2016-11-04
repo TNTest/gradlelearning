@@ -23,7 +23,7 @@ public class JokeScreenFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_joke_screen, container, false);
         TextView tv = (TextView) root.findViewById(R.id.screen_text);
-        new EndpointsAsyncTask().execute(tv);
+        tv.setText(getActivity().getIntent().getStringExtra(JokeScreenActivity.JTXT));
         return root;
     }
 
